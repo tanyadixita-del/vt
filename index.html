@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #ffe6eb;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 100px;
+      color: #e6005c;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .yes {
+      background-color: #ff3366;
+      color: white;
+    }
+
+    .small {
+      background-color: #999;
+      color: white;
+      position: absolute;
+    }
+
+    /* Name Gate */
+    #nameGate {
+      position: fixed;
+      inset: 0;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #nameGate input {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAME ENTRY SCREEN -->
+<div id="nameGate">
+  <div>
+    <h2>Enter your name</h2>
+    <input id="userName" placeholder="Your name">
+    <br><br>
+    <button onclick="startPage()">Continue</button>
+  </div>
+</div>
+
+<!-- MAIN VALENTINE PAGE -->
+<div id="mainPage" style="display:none;">
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <button class="yes">YES 💖</button>
+  <button class="small">NO 🙂</button>
+</div>
+
+<script>
+/* =========================
+   CONFIG
+========================= */
+const TRACK_URL = "https://script.google.com/macros/s/AKfycbzeesiT0oZr7obfhPDr-mFt_n4DJy-jGCGABQOvR2EaoEENZM4vn66YbYvIRUtXTYUnYQ/exec";
+
+/* =========================
+   STATE
+========================= */
+let visitorName = "";
+
+/* =========================
+   START PAGE
+========================= */
+function startPage() {
+  const input = document.getElementById("userName");
+  if (!input.value.trim()) {
+    alert("Please enter your name");
+    return;
+  }
+
+  visitorName = input.value.trim();
+
+  document.getElementById("nameGate").style.display = "none";
+  document.getElementById("mainPage").style.display = "block";
+
+  logEvent("OPEN");
+}
+
+/* =========================
+   BUTTON HANDLERS
+========================= */
+document.querySelector(".yes").addEventListener("click", () => {
+  logEvent("YES");
+  alert("Yay 💖");
+});
+
+document.querySelector(".small").addEventListener("mouseover", moveNo);
+document.querySelector(".small").addEventListener("click", () => {
+  logEvent("NO");
+  alert("Okay 🙂");
+});
+
+/* =========================
+   MOVE NO BUTTON
+========================= */
+function moveNo() {
+  const btn = document.querySelector(".small");
+  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+}
+
+/* =========================
+   TRACKING
+========================= */
+function logEvent(action) {
+  fetch(TRACK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: visitorName,
+      action: action
+    })
+  }).catch(() => {});
+}
+</script>
+
+</body>
+</html>
