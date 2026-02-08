@@ -14,22 +14,18 @@
     }
 
     h1 {
-      margin-top: 40px;
+      margin-top: 30px;
       color: #e6005c;
     }
 
-    .gif-container {
+    img {
+      width: 260px;
+      max-width: 85%;
       margin-top: 20px;
     }
 
-    .gif-container img {
-      width: 220px;
-      max-width: 80%;
-      margin: 10px;
-    }
-
     .buttons {
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     button {
@@ -57,34 +53,43 @@
 
   <h1>Will you be my Valentine? 💕</h1>
 
-  <!-- GIFs (replace src with your own if needed) -->
-  <div class="gif-container">
-    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="cute gif">
-    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="love gif">
-  </div>
+  <!-- MAIN GIF -->
+  <img id="gif" src="CAT_WITH_HEARTS_GIF_URL">
 
-  <!-- Buttons -->
   <div class="buttons">
     <button class="yes">YES 💖</button>
     <button class="no">NO 🙂</button>
   </div>
 
-  <!-- TRACKING SCRIPT (DO NOT TOUCH BELOW THIS) -->
   <script>
-    const TRACK_URL = "https://script.google.com/macros/s/AKfycbx-gXdKl3QNKv_lU5rW_7PIE9vFZuZQbDDQ-puVP_eoMAaiZF32fsjQ3PFIVQ-hh974Hg/exec";
+    const TRACK_URL =
+      "https://script.google.com/macros/s/AKfycby9be-mPCm3g6mLp5YrrDEB3A8GZ6iKYM56pYt66NZsVScSVbMr2VjpaRi47EAmeQB6hg/exec";
 
+    const gif = document.getElementById("gif");
+
+    let noCount = 0;
+
+    // SEND OPEN
     window.addEventListener("load", () => {
       send("OPEN");
+    });
 
-      document.querySelector(".yes").addEventListener("click", () => {
-        send("YES");
-        alert("Yay 💖");
-      });
+    // YES CLICK
+    document.querySelector(".yes").addEventListener("click", () => {
+      gif.src = "DANCING_TATHA_GIF_URL"; // ✅ replace with your dancing gif
+      send("YES");
+    });
 
-      document.querySelector(".no").addEventListener("click", () => {
-        send("NO");
-        alert("Okay 🙂");
-      });
+    // NO CLICK
+    document.querySelector(".no").addEventListener("click", () => {
+      noCount++;
+      send("NO");
+
+      if (noCount === 1) {
+        gif.src = "HEART_BREAKING_GIF_URL"; // 💔 first no
+      } else {
+        gif.src = "CRYING_CAT_THUMBS_UP_GIF_URL"; // 😿👍 second no
+      }
     });
 
     function send(action) {
