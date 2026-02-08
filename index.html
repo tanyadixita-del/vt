@@ -6,11 +6,11 @@
 
   <style>
     body {
-      margin: 0;
-      padding: 0;
       background: #ffe6ee;
       font-family: Arial, sans-serif;
       text-align: center;
+      margin: 0;
+      padding: 0;
     }
 
     h1 {
@@ -54,7 +54,7 @@
   <h1>Will you be my Valentine? 💕</h1>
 
   <!-- MAIN GIF -->
-  <img id="gif" src="CAT_WITH_HEARTS_GIF_URL">
+  <img id="gif" src="love.gif">
 
   <div class="buttons">
     <button class="yes">YES 💖</button>
@@ -63,32 +63,28 @@
 
   <script>
     const TRACK_URL =
-      "https://script.google.com/macros/s/AKfycbx-gXdKl3QNKv_lU5rW_7PIE9vFZuZQbDDQ-puVP_eoMAaiZF32fsjQ3PFIVQ-hh974Hg/exec";
+      "https://script.google.com/macros/s/AKfycbxcZrAG_FbNCY81vKd7_v0TkIXTSV3jguHVUexV0CYUZz9ncDQunZD01Jx89zfCjDMAHg/exec";
 
     const gif = document.getElementById("gif");
-
     let noCount = 0;
 
-    // SEND OPEN
     window.addEventListener("load", () => {
       send("OPEN");
     });
 
-    // YES CLICK
     document.querySelector(".yes").addEventListener("click", () => {
-      gif.src = "DANCING_TATHA_GIF_URL"; // ✅ replace with your dancing gif
+      gif.src = "thatha.gif";
       send("YES");
     });
 
-    // NO CLICK
     document.querySelector(".no").addEventListener("click", () => {
       noCount++;
       send("NO");
 
       if (noCount === 1) {
-        gif.src = "HEART_BREAKING_GIF_URL"; // 💔 first no
+        gif.src = "youme.gif";
       } else {
-        gif.src = "CRYING_CAT_THUMBS_UP_GIF_URL"; // 😿👍 second no
+        gif.src = "okaycat.gif";
       }
     });
 
