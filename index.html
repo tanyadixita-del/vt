@@ -36,74 +36,26 @@
       color: white;
       position: absolute;
     }
-
-    /* Name Gate */
-    #nameGate {
-      position: fixed;
-      inset: 0;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #nameGate input {
-      padding: 10px;
-      font-size: 16px;
-      width: 200px;
-    }
   </style>
 </head>
 
 <body>
 
-<!-- NAME ENTRY SCREEN -->
-<div id="nameGate">
-  <div>
-    <h2>Enter your name</h2>
-    <input id="userName" placeholder="Your name">
-    <br><br>
-    <button onclick="startPage()">Continue</button>
-  </div>
-</div>
+<h1>Will you be my Valentine? 💖</h1>
 
-<!-- MAIN VALENTINE PAGE -->
-<div id="mainPage" style="display:none;">
-  <h1>Will you be my Valentine? 💖</h1>
-
-  <button class="yes">YES 💖</button>
-  <button class="small">NO 🙂</button>
-</div>
+<button class="yes">YES 💖</button>
+<button class="small">NO 🙂</button>
 
 <script>
 /* =========================
    CONFIG
 ========================= */
-const TRACK_URL = "https://script.google.com/macros/s/AKfycbzeesiT0oZr7obfhPDr-mFt_n4DJy-jGCGABQOvR2EaoEENZM4vn66YbYvIRUtXTYUnYQ/exec";
+const TRACK_URL = "YOUR_WEB_APP_URL";
 
 /* =========================
-   STATE
+   PAGE OPEN TRACK
 ========================= */
-let visitorName = "";
-
-/* =========================
-   START PAGE
-========================= */
-function startPage() {
-  const input = document.getElementById("userName");
-  if (!input.value.trim()) {
-    alert("Please enter your name");
-    return;
-  }
-
-  visitorName = input.value.trim();
-
-  document.getElementById("nameGate").style.display = "none";
-  document.getElementById("mainPage").style.display = "block";
-
-  logEvent("OPEN");
-}
+logEvent("OPEN");
 
 /* =========================
    BUTTON HANDLERS
@@ -138,7 +90,6 @@ function logEvent(action) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      name: visitorName,
       action: action
     })
   }).catch(() => {});
