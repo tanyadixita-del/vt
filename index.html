@@ -2,24 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Valentine</title>
+  <title>Valentine 💖</title>
 
   <style>
     body {
+      margin: 0;
+      padding: 0;
+      background: #ffe6ee;
       font-family: Arial, sans-serif;
       text-align: center;
-      background: #ffe6eb;
-      overflow: hidden;
     }
 
     h1 {
-      margin-top: 100px;
+      margin-top: 40px;
       color: #e6005c;
     }
 
+    .gif-container {
+      margin-top: 20px;
+    }
+
+    .gif-container img {
+      width: 220px;
+      max-width: 80%;
+      margin: 10px;
+    }
+
+    .buttons {
+      margin-top: 40px;
+    }
+
     button {
-      padding: 12px 25px;
       font-size: 18px;
+      padding: 12px 26px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -31,70 +46,55 @@
       color: white;
     }
 
-    .small {
+    .no {
       background-color: #999;
       color: white;
-      position: absolute;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Will you be my Valentine? 💖</h1>
+  <h1>Will you be my Valentine? 💕</h1>
 
-<button class="yes">YES 💖</button>
-<button class="small">NO 🙂</button>
+  <!-- GIFs (replace src with your own if needed) -->
+  <div class="gif-container">
+    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="cute gif">
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="love gif">
+  </div>
 
-<script>
-/* =========================
-   CONFIG
-========================= */
-const TRACK_URL = "https://script.google.com/macros/s/AKfycbyyz9YfeE-zmNmm9VwzPiblvzU2YWxIIv_lDSj67O3yd5_doCpHn6QmCZHygkq2P9Qfcg/exec";
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="yes">YES 💖</button>
+    <button class="no">NO 🙂</button>
+  </div>
 
-/* =========================
-   PAGE OPEN TRACK
-========================= */
-logEvent("OPEN");
+  <!-- TRACKING SCRIPT (DO NOT TOUCH BELOW THIS) -->
+  <script>
+    const TRACK_URL = "https://script.google.com/macros/s/AKfycbx-gXdKl3QNKv_lU5rW_7PIE9vFZuZQbDDQ-puVP_eoMAaiZF32fsjQ3PFIVQ-hh974Hg/exec";
 
-/* =========================
-   BUTTON HANDLERS
-========================= */
-document.querySelector(".yes").addEventListener("click", () => {
-  logEvent("YES");
-  alert("Yay 💖");
-});
+    window.addEventListener("load", () => {
+      send("OPEN");
 
-document.querySelector(".small").addEventListener("mouseover", moveNo);
-document.querySelector(".small").addEventListener("click", () => {
-  logEvent("NO");
-  alert("Okay 🙂");
-});
+      document.querySelector(".yes").addEventListener("click", () => {
+        send("YES");
+        alert("Yay 💖");
+      });
 
-/* =========================
-   MOVE NO BUTTON
-========================= */
-function moveNo() {
-  const btn = document.querySelector(".small");
-  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-  btn.style.left = x + "px";
-  btn.style.top = y + "px";
-}
+      document.querySelector(".no").addEventListener("click", () => {
+        send("NO");
+        alert("Okay 🙂");
+      });
+    });
 
-/* =========================
-   TRACKING
-========================= */
-function logEvent(action) {
-  fetch(TRACK_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: action
-    })
-  }).catch(() => {});
-}
-</script>
+    function send(action) {
+      fetch(TRACK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action })
+      }).catch(() => {});
+    }
+  </script>
 
 </body>
 </html>
